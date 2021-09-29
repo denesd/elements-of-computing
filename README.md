@@ -1,4 +1,4 @@
-# elements-of-computinig
+# elements-of-computing
 
 ## Assembler Project
 
@@ -6,7 +6,7 @@
 
 Suggestion: Use poetry to install every dependency
 
-`poetry install && petry shell`
+`poetry install && poetry shell`
 
 First change to the assembler directory (`cd assembler`).
 

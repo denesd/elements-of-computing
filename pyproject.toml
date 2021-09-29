@@ -2,10 +2,12 @@
 name = "elements-of-computing"
 version = "0.1.0"
 description = "Elements of Computing Project"
+authors = ["Denes Dinok <denesdinok@invenshure.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
 
+argparse = "^1.4.0"
 pydantic = "^1.7.3"
 
 [tool.poetry.dev-dependencies]

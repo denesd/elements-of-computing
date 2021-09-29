@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import sys
+import argparse
 
 
 COMP_MAP = {
@@ -33,6 +34,7 @@ COMP_MAP = {
     "D|M": "1010101",
 }
 
+
 DST_MAP = {
     "0": "000",
     "D": "010",
@@ -43,6 +45,7 @@ DST_MAP = {
     "AD": "110",
     "AMD": "111",
 }
+
 
 JUMP_MAP = {
     "0": "000",
@@ -55,6 +58,7 @@ JUMP_MAP = {
     "JMP": "111",
 }
 
+
 SYMBOL_MAP = {
     "SP": 0,
     "LCL": 1,
@@ -64,16 +68,21 @@ SYMBOL_MAP = {
     "SCREEN": 16384,
     "KBD": 24576,
 }
+
+
 for i in range(16):
     SYMBOL_MAP[f"R{i}"] = i
-
-RAM_ADDR = 16
 
 
 def main(args):
     """Main function of assembler."""
+    parser = argparse.ArgumentParser(description="Convert .asm file to .hack file")
+    parser.add_argument("path", type=str, help="Filepath of an assembly file")
+    parser.add_argument("--output", type=str, help="Save hack file to output path")
+    args = parser.parse_args(args)
+
     translated_lines = []
-    with open(args[0]) as f:
+    with open(args.path) as f:
         kept_lines = initialize_symbols(f)
         ram_addr = 16
         for line in kept_lines:
@@ -82,7 +91,7 @@ def main(args):
                 translated_lines.append(f"{tline}\n")
             else:
                 translated_lines.append(f"{assemble_c_command(line)}\n")
-    output = args[1] if len(args) > 1 else "Prog.hack"
+    output = args.output or "Prog.hack"
     with open(output, "w") as f:
         f.writelines(translated_lines)
 
