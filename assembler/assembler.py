@@ -83,8 +83,10 @@ def main(args):
 
     translated_lines = []
     with open(args.path) as f:
+        print("Start translation...")
         kept_lines = initialize_symbols(f)
         ram_addr = 16
+        print("Process lines...")
         for line in kept_lines:
             if line.startswith("@"):
                 ram_addr, tline = assemble_a_command(line, ram_addr)
@@ -93,11 +95,14 @@ def main(args):
                 translated_lines.append(f"{assemble_c_command(line)}\n")
     output = args.output or "Prog.hack"
     with open(output, "w") as f:
+        print("Writing hack file...")
         f.writelines(translated_lines)
+        print("Hack file written")
 
 
 def initialize_symbols(f):
     """Initialize symbols into a symbol table."""
+    print("Initializing symbols...")
     kept_lines = []
     rom_addr = 0
     for line in f.readlines():
@@ -133,5 +138,5 @@ def assemble_c_command(line):
     return f"111{COMP_MAP[comp]}{DST_MAP[dst]}{JUMP_MAP['0']}"
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main(sys.argv[1:])
